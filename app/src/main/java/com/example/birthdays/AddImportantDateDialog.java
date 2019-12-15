@@ -24,9 +24,17 @@ public class AddImportantDateDialog extends AppCompatDialogFragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 EditText dateOfImportantDate = (EditText) getActivity().findViewById(R.id.dateOfImportantDate);
+                EditText dateHidden = (EditText) getActivity().findViewById(R.id.date);
+                EditText dateNoYear = (EditText) getActivity().findViewById(R.id.dateNoYear);
                 GregorianCalendar calendar = new GregorianCalendar(year, month, dayOfMonth);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy");
                 dateOfImportantDate.setText(dateFormat.format(calendar.getTime()));
+                SimpleDateFormat hiddenDateFormat = new SimpleDateFormat("yyyy-MM-d");
+                dateHidden.setText(hiddenDateFormat.format(calendar.getTime()));
+                SimpleDateFormat dateNoYearFormat = new SimpleDateFormat("--MM-d");
+                dateNoYear.setText(dateNoYearFormat.format(calendar.getTime()));
+                //System.out.println("dateHidden = " + hiddenDateFormat.format(calendar.getTime()));
+                //System.out.println("dateNoYear = " + dateNoYearFormat.format(calendar.getTime()));
             }
         }, year, month, day);
     }

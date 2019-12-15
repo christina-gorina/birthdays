@@ -1,5 +1,7 @@
 package com.example.birthdays;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -32,6 +34,27 @@ public class DateOfEvent {
         /*System.out.println("DateOfEvent bYear = " + bYear);
         System.out.println("DateOfEvent bMonth = " + bMonth);
         System.out.println("DateOfEvent dayOfMounth = " + dayOfMounth);*/
+    }
+
+    public Calendar getCalendarDate(){
+        Calendar bDate;
+        bDate = new GregorianCalendar();
+
+        bDate.set(Calendar.YEAR, getYear());
+        bDate.set(Calendar.MONTH, getMonth());
+        bDate.set(Calendar.DAY_OF_MONTH, getDayOfMounth());
+        return bDate;
+    }
+
+    public String toFormatedString(){
+        DateFormat df;
+        if(getYear() != 0){
+            df = new SimpleDateFormat("d MMMM yyy");
+        }else{
+            df = new SimpleDateFormat("dd MMMM");
+        }
+        String date = df.format(getCalendarDate().getTime());
+        return date;
     }
 
     public int getDayOfYear(){

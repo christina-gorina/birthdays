@@ -36,6 +36,7 @@
                 android:inputType="date"
                 android:enabled="false"
                 style="@style/MyBaseTextStyle" />
+
             <ImageButton
                 android:id="@+id/calendarImportantDate"
                 android:layout_width="24dp"
@@ -45,7 +46,11 @@
                 android:layout_marginTop="16dp"/>
 
         </LinearLayout>
-
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
         <CheckBox
             android:id="@+id/noYear"
             android:layout_width="wrap_content"
@@ -53,6 +58,11 @@
             android:text="Без года"
             android:textColor="#868686"
             android:layout_marginBottom="16dp"/>
+        <EditText
+            android:id="@+id/dateNoYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <CheckBox
             android:id="@+id/notification"

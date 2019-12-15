@@ -27,6 +27,7 @@ public class ImportantDateAdapter extends RecyclerView.Adapter<RecyclerView.View
     public static class ImportantDateHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView data;
+        TextView left;
         Button delete;
 
         public ImportantDateHolder(@NonNull View itemView) {
@@ -34,6 +35,7 @@ public class ImportantDateAdapter extends RecyclerView.Adapter<RecyclerView.View
             name = itemView.findViewById(R.id.name);
             data = itemView.findViewById(R.id.data);
             delete = itemView.findViewById(R.id.delete);
+            left = itemView.findViewById(R.id.left);
         }
     }
 
@@ -51,6 +53,8 @@ public class ImportantDateAdapter extends RecyclerView.Adapter<RecyclerView.View
         ImportantDateHolder eventHolder = (ImportantDateHolder) viewHolder;
         eventHolder.name.setText(item.getName());
         eventHolder.data.setText(item.getData());
+        //eventHolder.left.setText("Осталось дней " + item.getLeft());
+        eventHolder.left.setText("Осталось дней " + item.getLeft());
 
         final int index = position;
         final int id = item.getId();

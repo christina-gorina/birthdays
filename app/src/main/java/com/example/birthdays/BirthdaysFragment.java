@@ -120,7 +120,8 @@ public class BirthdaysFragment extends Fragment {
                 Bitmap previewPhoto = getContactPhoto(id);
 
                 DateOfEvent dateOfEvent = new DateOfEvent(birthday);
-                int bMonth = dateOfEvent.getMonth();
+
+                System.out.println("date BirthdayItem = " + birthday);
 
                 recyclerViewItems.add(new BirthdayItem(previewPhoto, name, dateOfEvent, BirthdayItem.ITEM_TYPE_EVENT));
             }

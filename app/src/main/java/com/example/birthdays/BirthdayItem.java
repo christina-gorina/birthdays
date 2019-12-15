@@ -2,11 +2,6 @@ package com.example.birthdays;
 
 import android.graphics.Bitmap;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 public class BirthdayItem {
     private Bitmap photo;
     private String name;
@@ -19,8 +14,6 @@ public class BirthdayItem {
     public int type;
 
     private DateOfEvent dateOfEvent;
-
-    private Calendar bDate;
 
     public static final int ITEM_TYPE_HEADER = 0;
     public static final int ITEM_TYPE_EVENT = 1;
@@ -43,15 +36,8 @@ public class BirthdayItem {
        // Log.i("MyLog", "date = " + date);
         //System.out.println("================");
 
-        bDate = new GregorianCalendar();
-
-        bDate.set(Calendar.YEAR, bYear);
-        bDate.set(Calendar.MONTH, bMonth);
-        bDate.set(Calendar.DAY_OF_MONTH, bDay);
-
         setFullYears();
         setLeft();
-        setData();
     }
 
     private void setFullYears(){
@@ -66,18 +52,6 @@ public class BirthdayItem {
         left = String.valueOf(daysBefore);
     }
 
-    private void setData(){
-        DateFormat df;
-        if(bYear != 0){
-            df = new SimpleDateFormat("d MMMM yyy");
-        }else{
-            df = new SimpleDateFormat("dd MMMM");
-        }
-        date = df.format(bDate.getTime());
-        //System.out.println("date: " + date);
-    }
-
-
     public Bitmap getPhoto() {
         return photo;
     }
@@ -91,7 +65,7 @@ public class BirthdayItem {
     }
 
     public String getData() {
-        return date;
+        return dateOfEvent.toFormatedString();
     }
 
     public int getbMonth() {

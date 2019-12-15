@@ -12,12 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.birthdays.EventsContract.ImportantDates;
 
 public class AddImportantDatePage extends AppCompatActivity {
     private EditText nameEditText;
     private EditText dateEditText;
+    private EditText dateHidden;
+    private EditText dateNoYear;
     private CheckBox noyearCheckBox;
     private CheckBox notificationCheckBox;
     EventsDbHelper eventsDbHelper;
@@ -30,6 +33,8 @@ public class AddImportantDatePage extends AppCompatActivity {
 
         nameEditText = (EditText) findViewById(R.id.nameOfImportantDate);
         dateEditText = (EditText) findViewById(R.id.dateOfImportantDate);
+        dateHidden = (EditText) findViewById(R.id.date);
+        dateNoYear = (EditText) findViewById(R.id.dateNoYear);
         noyearCheckBox = (CheckBox) findViewById(R.id.noYear);
         notificationCheckBox = (CheckBox) findViewById(R.id.notification);
 
@@ -51,6 +56,7 @@ public class AddImportantDatePage extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.addImportantDate:
                 if(!(nameEditText.getText().toString().trim().equals("")) && !(dateEditText.getText().toString().trim().equals(""))){
                     insertImportantDate();
@@ -73,9 +79,16 @@ public class AddImportantDatePage extends AppCompatActivity {
 
     private void insertImportantDate() {
         // Считываем данные из текстовых полей
+        String date;
         String name = nameEditText.getText().toString().trim();
-        String date = dateEditText.getText().toString().trim();
+
         boolean noyear = ((CheckBox) noyearCheckBox).isChecked();
+        if(!noyear){
+            date = dateHidden.getText().toString().trim();
+        }else{
+            date = dateNoYear.getText().toString().trim();
+        }
+
         boolean notification = ((CheckBox) notificationCheckBox).isChecked();
 
         ContentValues values = new ContentValues();
