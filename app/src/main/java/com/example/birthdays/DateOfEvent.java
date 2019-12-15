@@ -1,5 +1,8 @@
 package com.example.birthdays;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class DateOfEvent {
 
     private int dayOfMounth;
@@ -29,6 +32,14 @@ public class DateOfEvent {
         /*System.out.println("DateOfEvent bYear = " + bYear);
         System.out.println("DateOfEvent bMonth = " + bMonth);
         System.out.println("DateOfEvent dayOfMounth = " + dayOfMounth);*/
+    }
+
+    public int getDayOfYear(){
+        Calendar bDate = new GregorianCalendar();
+        bDate.set(Calendar.YEAR, year);
+        bDate.set(Calendar.MONTH, month);
+        bDate.set(Calendar.DAY_OF_MONTH, dayOfMounth);
+        return bDate.get(Calendar.DAY_OF_YEAR);
     }
 
     private int hasNumber(String number){

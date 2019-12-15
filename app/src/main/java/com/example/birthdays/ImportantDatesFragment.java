@@ -89,11 +89,11 @@ public class ImportantDatesFragment extends Fragment {
                 int noyear = cursor.getInt(cursor.getColumnIndex(ImportantDates.COLUMN_NOYEAR));
                 int notification = cursor.getInt(cursor.getColumnIndex(ImportantDates.COLUMN_NOTIFICATION));
                 importantDateItems.add(new ImportantDatesItem(id, name, date, noyear, notification));
-                System.out.println("id = " + id);
+                /*System.out.println("id = " + id);
                 System.out.println("name = " + name);
                 System.out.println("date = " + date);
                 System.out.println("noyear = " + noyear);
-                System.out.println("notification = " + notification);
+                System.out.println("notification = " + notification);*/
 
             }
         }
