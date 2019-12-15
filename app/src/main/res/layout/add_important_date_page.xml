@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/nameOfImportantDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="30"
+            android:inputType="textPersonName"
+            android:hint="Введите название события"
+            android:layout_marginBottom="16dp"
+            style="@style/MyBaseTextStyle"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/dateOfImportantDate"
+                android:hint="Введите дату >>>>"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:enabled="false"
+                style="@style/MyBaseTextStyle" />
+            <ImageButton
+                android:id="@+id/calendarImportantDate"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:onClick="addDateOfImportantDate"
+                android:src="@drawable/ic_event_available_black_24dp"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/noYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Без года"
+            android:textColor="#868686"
+            android:layout_marginBottom="16dp"/>
+
+        <CheckBox
+            android:id="@+id/notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Не напоминать"
+            android:textColor="#868686"/>
+
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+
