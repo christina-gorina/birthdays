@@ -10,6 +10,10 @@ public class CalculateOfDate {
     private int nDay;
     private int nMonth;
     private int nYear;
+    private static final int COUNT_OF_MINUTS_IN_DAY = 1440;
+    private static final int COUNT_OF_DAYS_IN_LEAP_YEAR = 366;
+    private static final int COUNT_OF_DAYS_IN_NOLEAP_YEAR = 365;
+    private static final int COUNT_OF_MINUTS_IN_HOUR = 60;
 
     public CalculateOfDate() {
         super();
@@ -33,13 +37,12 @@ public class CalculateOfDate {
             if (nMonth < dateOfEvent.getMonth()) {
                 --birthday;
             }else if (nMonth == dateOfEvent.getMonth()) {
-                if(nDay < dateOfEvent.getDayOfMounth()){
+                if(nDay < dateOfEvent.getDayOfMonth()){
                     --birthday;
                 }
             }
         }
         if(birthday == -1){return -1;}else {return birthday;}
-
     }
 
     public int DaysBefore(DateOfEvent dateOfEvent){
@@ -49,18 +52,22 @@ public class CalculateOfDate {
             left = calculateLastDay(dateOfEvent, "next");
 
         }else if(nMonth == dateOfEvent.getMonth()){
-            if(nDay < dateOfEvent.getDayOfMounth()){
+            if(nDay < dateOfEvent.getDayOfMonth()){
                 //System.out.println("Birthday next");
                 left = calculateLastDay(dateOfEvent, "next");
             }else{
                 left = calculateLastDay(dateOfEvent, "last");
             }
-        }else if(dateOfEvent.getMonth() == nMonth && nDay == dateOfEvent.getDayOfMounth()){
+        }else if(dateOfEvent.getMonth() == nMonth && nDay == dateOfEvent.getDayOfMonth()){
             //System.out.println("Birthday today");
             left = 0;
         }else{
             //System.out.println("Birthday last");
             left = calculateLastDay(dateOfEvent,"last");
+        }
+
+        if(left >= COUNT_OF_DAYS_IN_NOLEAP_YEAR){
+            left = 0;
         }
 
         return left;
@@ -86,4 +93,22 @@ public class CalculateOfDate {
         return dayLeft;
     }
 
+
+    public int TimeAfterYearInMinutes(){
+        GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();
+        int days = (calendar.isLeapYear(nYear)) ? COUNT_OF_DAYS_IN_LEAP_YEAR : COUNT_OF_DAYS_IN_NOLEAP_YEAR;
+        return days * COUNT_OF_MINUTS_IN_DAY;
+    }
+
+    public int MinutesBeforeDayEnd(){
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minut = now.get(Calendar.MINUTE);
+        return COUNT_OF_MINUTS_IN_DAY - (hour * COUNT_OF_MINUTS_IN_HOUR + minut);
+    }
+
+    public int MinutesFromDayStart(){
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minut = now.get(Calendar.MINUTE);
+        return hour * COUNT_OF_MINUTS_IN_HOUR + minut;
+    }
 }

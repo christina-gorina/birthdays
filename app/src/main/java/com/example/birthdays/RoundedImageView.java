@@ -12,8 +12,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 
-public class RoundedImageView extends android.support.v7.widget.AppCompatImageView {
-
+public class RoundedImageView extends androidx.appcompat.widget.AppCompatImageView {
     private int borderWidth = 4;
     private int viewWidth;
     private int viewHeight;
@@ -44,12 +43,10 @@ public class RoundedImageView extends android.support.v7.widget.AppCompatImageVi
     {
         paint = new Paint();
         paint.setAntiAlias(true);
-
         paintBorder = new Paint();
         setBorderColor(Color.WHITE);
         paintBorder.setAntiAlias(true);
         this.setLayerType(LAYER_TYPE_SOFTWARE, paintBorder);
-
         paintBorder.setShadowLayer(4.0f, 0.0f, 2.0f, Color.WHITE);
     }
 

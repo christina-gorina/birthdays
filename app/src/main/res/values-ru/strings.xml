@@ -14,4 +14,8 @@
     <string name="november">Ноябрь</string>
     <string name="december">Декабрь</string>
     <string name="last_days">Осталось дней</string>
+    <string name="important_date">Важная дата</string>
+    <string name="days_before_event">Дней до события</string>
+    <string name="event_today">Событие сегодня</string>
+    <string name="birthday">День рождения</string>
 </resources>

@@ -1,16 +1,12 @@
 package com.example.birthdays;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
-import android.widget.ToggleButton;
-
-import java.lang.reflect.Array;
 
 public class MainActivity extends AppCompatActivity {
     ViewPager pager;
@@ -39,24 +35,12 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(pager);
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-
-
-    }
-
-    public void onNotificationButtonClick(View button) {
-        Toast.makeText(getApplicationContext(), Boolean.toString(((ToggleButton) button).isChecked()), Toast.LENGTH_SHORT).show();
-    }
-
-    public void onCongratulateButtonClick(View view) {
-        Toast.makeText(getApplicationContext(), "Congratulate", Toast.LENGTH_SHORT).show();
     }
 
     public void addImportantDate(View view) {
         Intent intent = new Intent(this, AddImportantDatePage.class);
         startActivity(intent);
     }
-
-
 }
 
 

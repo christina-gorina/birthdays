@@ -1,20 +1,17 @@
 package com.example.birthdays;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.database.SQLException;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import com.example.birthdays.EventsContract.ImportantDates;
 
 public class AddImportantDatePage extends AppCompatActivity {
     private EditText nameEditText;
@@ -23,8 +20,13 @@ public class AddImportantDatePage extends AppCompatActivity {
     private EditText dateNoYear;
     private CheckBox noyearCheckBox;
     private CheckBox notificationCheckBox;
-    EventsDbHelper eventsDbHelper;
-    SQLiteDatabase db;
+    private DB db;
+    static final String TAG = "AddImportantDatePage";
+    private long idEventInfo;
+    private static final String IMPORTANT_DATE = EventItems.IMPORTANT_DATE_TYPE;
+    private static final int TIME_OF_NOTIFICATION = 8; // В 24 формате
+    //private static final int TIME_OF_NOTIFICATION = 1; // В 24 формате
+    private static final int COUNT_OF_DAYS_BEFORE_NOTIFICATION = 3; // За сколько дней напомнить о дате
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +40,8 @@ public class AddImportantDatePage extends AppCompatActivity {
         noyearCheckBox = (CheckBox) findViewById(R.id.noYear);
         notificationCheckBox = (CheckBox) findViewById(R.id.notification);
 
-        eventsDbHelper = new EventsDbHelper(this);
-        db = eventsDbHelper.getWritableDatabase();
+        db = new DB(this);
+        db.open();
     }
 
     public void addDateOfImportantDate(View view) {
@@ -56,7 +58,6 @@ public class AddImportantDatePage extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.addImportantDate:
                 if(!(nameEditText.getText().toString().trim().equals("")) && !(dateEditText.getText().toString().trim().equals(""))){
                     insertImportantDate();
@@ -71,16 +72,13 @@ public class AddImportantDatePage extends AppCompatActivity {
         }
     }
 
-    protected void onDestroy() {
-        super.onDestroy();
-        // закрываем подключение при выходе
-        db.close();
-    }
-
     private void insertImportantDate() {
         // Считываем данные из текстовых полей
         String date;
         String name = nameEditText.getText().toString().trim();
+        String type = IMPORTANT_DATE;
+        long newImportantDateId = 0;
+        int notification = 0;
 
         boolean noyear = ((CheckBox) noyearCheckBox).isChecked();
         if(!noyear){
@@ -89,23 +87,31 @@ public class AddImportantDatePage extends AppCompatActivity {
             date = dateNoYear.getText().toString().trim();
         }
 
-        boolean notification = ((CheckBox) notificationCheckBox).isChecked();
+        Log.d(TAG, "date = " + date);
 
-        ContentValues values = new ContentValues();
+        int noyearInt = noyear ? 1 : 0;
+        notification = ((CheckBox) notificationCheckBox).isChecked() ? 1 : 0; // конвертируем boolean  в  int
 
-        values.put(ImportantDates.COLUMN_NAME, name);
-        values.put(ImportantDates.COLUMN_DATE, date);
-        values.put(ImportantDates.COLUMN_NOYEAR, noyear);
-        values.put(ImportantDates.COLUMN_NOTIFICATION, notification);
-
-        // Вставляем новый ряд в базу данных и запоминаем его идентификатор
-        long newRowId = db.insert(ImportantDates.TABLE_NAME, null, values);
-
-        // Выводим сообщение в успешном случае или при ошибке
-        if (newRowId == -1) {
-            // Если ID  -1, значит произошла ошибка
+        db.beginTransaction();
+        try {
+            newImportantDateId = db.addImportantDate(name, date); //newImportantDateId возвращает -1 если операция не удалась
+            Log.d(TAG, "newImportantDateId = " + newImportantDateId);
+            db.setTransactionSuccessful();
+            idEventInfo = db.addEventInfo(newImportantDateId, type, noyearInt, notification);
+            Log.d(TAG, "idEventInfo = " + idEventInfo);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
             Toast.makeText(this, "Ошибка при занесении даты", Toast.LENGTH_SHORT).show();
-        } else {
+        }finally {
+            db.endTransaction();
+            db.close();
+            if(notification == 0){
+                NotificationCreator nc = new NotificationCreator(newImportantDateId, idEventInfo, type, name, date, TIME_OF_NOTIFICATION, getApplicationContext());
+                nc.createNotificationInDay();
+                nc.createNotificationEarly(COUNT_OF_DAYS_BEFORE_NOTIFICATION);
+            }
+
             Toast.makeText(this, "Дата успешно занесена" , Toast.LENGTH_SHORT).show();
         }
     }

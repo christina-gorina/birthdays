@@ -3,10 +3,9 @@ package com.example.birthdays;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDialogFragment;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import android.widget.DatePicker;
 import android.widget.EditText;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -14,7 +13,6 @@ import java.util.GregorianCalendar;
 public class AddImportantDateDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -33,10 +31,7 @@ public class AddImportantDateDialog extends AppCompatDialogFragment {
                 dateHidden.setText(hiddenDateFormat.format(calendar.getTime()));
                 SimpleDateFormat dateNoYearFormat = new SimpleDateFormat("--MM-d");
                 dateNoYear.setText(dateNoYearFormat.format(calendar.getTime()));
-                //System.out.println("dateHidden = " + hiddenDateFormat.format(calendar.getTime()));
-                //System.out.println("dateNoYear = " + dateNoYearFormat.format(calendar.getTime()));
             }
         }, year, month, day);
     }
-
 }

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" addBOMForNewFiles="with NO BOM" />
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://D:/Документы/AndroidStudio/DeviceExplorer/sony-d6603-CB5A20WSZ7/data/data/com.example.birthdays/databases/events" charset="windows-1251" />
+  </component>
 </project>

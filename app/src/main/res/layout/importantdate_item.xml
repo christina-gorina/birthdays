@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -47,15 +47,15 @@
             android:orientation="vertical"
             android:layout_weight="1">
 
-
             <ToggleButton
                 android:id="@+id/notification"
                 android:backgroundTint="@color/colorPrimary"
                 android:layout_width="32dp"
                 android:layout_height="16dp"
                 android:layout_weight="1"
-                android:background="@drawable/notification_event"
-                android:onClick="onNotificationButtonClick"/>
+                android:textOff=" "
+                android:textOn=" "
+                android:background="@drawable/notification_event" />
 
             <Button
                 android:id="@+id/delete"
@@ -74,4 +74,4 @@
         android:background="?android:attr/listDivider" />
 
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>
